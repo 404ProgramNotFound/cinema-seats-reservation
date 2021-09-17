@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css" type="text/css">
+    <title>Prenotazione Posti</title>
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <div class="user-data">
+        <div class="input">
+            <div class="name">
+                
+                <label for="name" class="form__label">nome</label>
+                <input type="text" class="form__input" id="nome" placeholder="Nome" required />
+            </div>
+            <div class="surname">
+                <label for="name" class="form__label">cognome</label>
+                <input type="text" class="form__input" id="cognome" placeholder="Cognome" required />
+            </div>
+            <div class="telephone">
+                <label for="name" class="form__label">Telefono</label>
+                <input type="tel" class="form__input" id="telefono" placeholder="Telefono" required  />
+            </div>
+            <div class="submit-feedback">Submit</div>
+        </div>
+    </div>
+    <div class="movie-container">
+        <label>Seleziona il posto per TEST FILM</label>
+    </div>
+
+    <ul class="showcase">
+        <li>
+            <div class="seat"></div>
+            <small>N/A</small>
+        </li>
+
+        <li>
+            <div class="seat selected"></div>
+            <small>Selezionato</small>
+        </li>
+
+        <li>
+            <div class="seat occupied"></div>
+            <small>Occupato</small>
+        </li>
+    </ul>
+
+    <div class="container">
+        <div class="screen"></div>
+        <script>
+            let nPosti = [9, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
+                11, 11, 11, 10, 10, 8, 8, 7, 7
+            ];
+            let riga;
+
+            for (let i = 0; i <= nPosti.length / 2; i++) {
+                riga = document.createElement('div');
+                riga.classList.add("row");
+                document.getElementsByClassName("container")[0].appendChild(riga);
+
+            }
+        </script>
+        <script>
+            let k = 1;
+            for (let i = 0; i <= nPosti.length; i++) {
+                for (let j = 0; j < nPosti[i]; j++, k++) {
+                    posto = document.createElement('div');
+                    posto.classList.add("seat");
+                    if (i % 2 == 0 && j == nPosti[i] - 1) {
+                        posto.classList.add("center");
+                    }
+                    posto.setAttribute('id', `${String.fromCharCode(97 + i/2)}${k}`);
+                    document.getElementsByClassName("row")[parseInt(i / 2)].appendChild(posto);
+
+                }
+                k = (k * (i % 2 == 0)+ 1*(i % 2 != 0));
+            }
+        </script>
+
+        <p class="text">
+            Hai scelto <span id="count">0</span> posti per un totale di €<span id="total">0</span>
+        </p>
+        <script src="/socket.io/socket.io.js">
+        </script>
+        <script src="js/main.js">
+        </script>
+
+</body>
+
+</html>
